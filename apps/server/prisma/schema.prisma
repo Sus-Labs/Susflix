@@ -8,17 +8,33 @@ datasource db {
 }
 
 model Account {
-  id            String  @id @unique @default(cuid()) @map("_id")
-  profile_image String
-  username      String
-  email         String  @unique
-  password      String
-  verified      Boolean @default(false)
+  id       String  @id @unique @default(cuid()) @map("_id")
+  username String
+  email    String  @unique
+  password String
+  verified Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  profiles Profile[]
+
   @@map("accounts")
+}
+
+model Profile {
+  id String @id @unique @default(cuid()) @map("_id")
+
+  name       String
+  avatar_url String
+  age        Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Account   Account? @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  accountId String?
+
+  @@map("profiles")
 }
 
 model Thumbnail {
@@ -27,6 +43,9 @@ model Thumbnail {
   description String
   image_url   String?
   url         String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("thumbnails")
 }
@@ -39,6 +58,9 @@ model Movie {
   duration    String
   rating      Int
   age         Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("movies")
 }
