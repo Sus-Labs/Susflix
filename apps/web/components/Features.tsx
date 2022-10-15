@@ -1,11 +1,11 @@
 export default function Features() {
   return (
-  <div className="relative overflow-hidden bg-black pt-16 pb-32">
-    <FirstFeature />
-    <SecondFeature />
-    <ThirdFeature />
-    <FourthFeature />
-  </div>
+    <div className="relative overflow-hidden bg-black pt-16 pb-32">
+      <FirstFeature />
+      <SecondFeature />
+      <ThirdFeature />
+      <FourthFeature />
+    </div>
   );
 }
 
