@@ -1,0 +1,16 @@
+{
+    "name": "server",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./src/index.ts",
+    "scripts": {
+        "build": "tsc",
+        "start": "npm run db:push && NODE_ENV=production node build/index.js",
+        "dev": "npm run db:push && NODE_ENV=development nodemon ./src/index.ts",
+        "db:push": "prisma db push",
+        "db:pull": "prisma db pull"
+    },
+    "devDependencies": {
+        "typescript": "^4.8.4"
+    }
+}
