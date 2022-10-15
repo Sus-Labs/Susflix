@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id            String  @id @unique @default(cuid()) @map("_id")
+  profile_image String
+  username      String
+  email         String  @unique
+  password      String
+  verified      Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("accounts")
+}
+
+model Thumbnail {
+  id          String  @id @unique @default(cuid()) @map("_id")
+  title       String
+  description String
+  image_url   String?
+  url         String?
+
+  @@map("thumbnails")
+}
+
+model Movie {
+  id          String @id @unique @default(cuid()) @map("_id")
+  title       String
+  description String
+  source_url  String
+  duration    String
+  rating      Int
+  age         Int
+
+  @@map("movies")
+}
