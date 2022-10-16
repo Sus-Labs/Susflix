@@ -1,8 +1,8 @@
 const headerData: any = [
-  {
-    name: "SusFlix",
-    imageURL: "/susflix.png",
-  },
+    {
+        name: "SusFlix",
+        imageURL: "/susflix.png",
+    },
 ];
 
 export default headerData;
