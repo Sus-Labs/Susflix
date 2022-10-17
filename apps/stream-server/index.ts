@@ -107,6 +107,12 @@ function createServer() {
 const app = createServer();
 const start = async (port: number) => {
     try {
+        if (!process.env.HOST_URL) {
+            log.error("Please set the `HOST_URL` environment variable")
+        }
+        if (!process.env.ROOT_DIR) {
+            log.error("Please set the `ROOT_DIR` environment variable")
+        }
         app.listen(port, () => {
             log.info(`Listening on http://0.0.0.0:${port}`);
             log.info(`Running in ${process.env.NODE_ENV} mode`);
