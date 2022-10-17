@@ -64,3 +64,40 @@ model Movie {
 
   @@map("movies")
 }
+
+model Show {
+  id      String   @id @unique @default(cuid()) @map("_id")
+  name    String
+  seasons Season[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("shows")
+}
+
+model Season {
+  id     String  @id @unique @default(cuid()) @map("_id")
+  name   String
+  Show   Show?   @relation(fields: [showId], references: [id], onDelete: Cascade)
+  showId String?
+
+  episodes Episode[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("seasons")
+}
+
+model Episode {
+  id       String  @id @unique @default(cuid()) @map("_id")
+  name     String
+  Season   Season? @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  seasonId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("episodes")
+}
