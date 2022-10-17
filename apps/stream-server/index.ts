@@ -1,4 +1,6 @@
 import express, { Express, Response, Request, NextFunction } from "express";
+import os from "os";
+import cluster from "cluster";
 import dotenv from "dotenv";
 import logger from "pino";
 import dayjs from "dayjs";
@@ -9,6 +11,7 @@ import fs from "fs";
 dotenv.config();
 
 const PORT: number = Number(process.env.PORT) || 8080;
+const CLUSTER_WORKER_SIZE = os.cpus().length;
 const CHUNK_SIZE_IN_BYTES: number = 1000000;
 
 const log = logger({
@@ -35,11 +38,12 @@ function createServer() {
             statusCode: 200,
             message: "Success",
             payload: {
-                status: "healthy",
+                status: "OK",
+                average_load: os.loadavg(),
                 uptime: process.uptime(),
                 timestamp: Date.now(),
                 environment: process.env.NODE_ENV,
-                version: process.env.GIT_SHA,
+                version: process.env.COMMIT_SHA,
             },
         });
     });
@@ -108,10 +112,10 @@ const app = createServer();
 const start = async (port: number) => {
     try {
         if (!process.env.HOST_URL) {
-            log.error("Please set the `HOST_URL` environment variable")
+            log.error("Please set the `HOST_URL` environment variable");
         }
         if (!process.env.ROOT_DIR) {
-            log.error("Please set the `ROOT_DIR` environment variable")
+            log.error("Please set the `ROOT_DIR` environment variable");
         }
         app.listen(port, () => {
             log.info(`Listening on http://0.0.0.0:${port}`);
@@ -123,4 +127,25 @@ const start = async (port: number) => {
     }
 };
 
-start(PORT);
+if (CLUSTER_WORKER_SIZE > 1) {
+    if (cluster.isPrimary) {
+        for (let i = 0; i < CLUSTER_WORKER_SIZE; i++) {
+            cluster.fork();
+        }
+
+        cluster.on("exit", function (worker) {
+            log.info("[WORKER]", worker.id, " has exited");
+        });
+    } else {
+        start(PORT);
+    }
+} else {
+    start(PORT);
+}
+
+cluster.on("exit", function (worker, code, signal) {
+    log.info("[WORKER]", worker.id, "has exited with signal", signal);
+    if (code !== 0 && !worker.exitedAfterDisconnect) {
+        cluster.fork();
+    }
+});
