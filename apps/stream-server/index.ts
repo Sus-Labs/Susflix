@@ -4,7 +4,6 @@ import cluster from "cluster";
 import dotenv from "dotenv";
 import logger from "pino";
 import dayjs from "dayjs";
-import helmet from "helmet";
 import cors from "cors";
 import fs from "fs";
 
@@ -26,7 +25,6 @@ function createServer() {
 
     server.use(express.json());
     server.use(express.urlencoded({ extended: false }));
-    server.use(helmet());
     server.use(
         cors({
             origin: process.env.HOST_URL,
