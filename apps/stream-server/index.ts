@@ -20,6 +20,7 @@ const log = logger({
 
 function createServer() {
     const server: Express = express();
+
     server.use(express.json());
     server.use(express.urlencoded({ extended: false }));
     server.use(helmet());
@@ -29,7 +30,6 @@ function createServer() {
         }),
     );
     server.set("trust proxy", 1);
-
     server.get("/health", (req: Request, res: Response) => {
         res.status(200).send({
             statusCode: 200,
@@ -43,13 +43,8 @@ function createServer() {
             },
         });
     });
-
-    server.get("/", function (req: Request, res: Response) {
-        res.sendFile(__dirname + "/index.html");
-    });
-
     server.get("/stream", async (req: Request, res: Response) => {
-        try { 
+        try {
             const range = req.headers.range;
 
             if (!range) {
@@ -82,7 +77,7 @@ function createServer() {
                 end: chunkEnd,
             });
 
-            videoStream.pipe(res);``
+            videoStream.pipe(res);
         } catch (error) {
             res.status(500).send({
                 statusCode: 500,
@@ -91,7 +86,6 @@ function createServer() {
             });
         }
     });
-
     server.use((error: Error, req: Request, res: Response, next: NextFunction) => {
         res.status(500).send({
             statusCode: 500,
@@ -99,7 +93,6 @@ function createServer() {
             payload: null,
         });
     });
-
     server.use((req: Request, res: Response, next: NextFunction) => {
         res.status(404).send({
             statusCode: 404,
@@ -112,7 +105,6 @@ function createServer() {
 }
 
 const app = createServer();
-
 const start = async (port: number) => {
     try {
         app.listen(port, () => {
