@@ -109,15 +109,9 @@ function createServer() {
 const app = createServer();
 const start = async (port: number) => {
     try {
-        if (!process.env.HOST_URL) {
-            log.error("Please set the `HOST_URL` environment variable");
-        }
-        if (!process.env.ROOT_DIR) {
-            log.error("Please set the `ROOT_DIR` environment variable");
-        }
         app.listen(port, () => {
+            log.info(`Starting Stream server in ${process.env.NODE_ENV} mode`);
             log.info(`Listening on http://0.0.0.0:${port}`);
-            log.info(`Running in ${process.env.NODE_ENV} mode`);
         });
     } catch (error) {
         log.error(error);
@@ -132,7 +126,7 @@ if (CLUSTER_WORKER_SIZE > 1) {
         }
 
         cluster.on("exit", function (worker) {
-            log.info("[WORKER]", worker.id, " has exited");
+            log.error("[WORKER]", worker.id, " has exited");
         });
     } else {
         start(PORT);
@@ -142,7 +136,7 @@ if (CLUSTER_WORKER_SIZE > 1) {
 }
 
 cluster.on("exit", function (worker, code, signal) {
-    log.info("[WORKER]", worker.id, "has exited with signal", signal);
+    log.error("[WORKER]", worker.id, "has exited with signal", signal);
     if (code !== 0 && !worker.exitedAfterDisconnect) {
         cluster.fork();
     }
