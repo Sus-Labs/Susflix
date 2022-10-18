@@ -38,7 +38,7 @@ const contents = [
         category: "Blender Studios",
         imageSrc: "https://yewtu.be/vi/_cMxraX_5RE/mqdefault.jpg",
         content_id: "Sprite_Fright",
-    }
+    },
 ];
 
-export default contents
+export default contents;
