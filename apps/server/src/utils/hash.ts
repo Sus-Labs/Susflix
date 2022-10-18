@@ -1,12 +1,11 @@
 import argon2 from "argon2";
-import log from "./logger";
 
 const hashPassword = async (value: string) => {
     try {
         const hash = await argon2.hash(value);
         return hash;
     } catch (error) {
-        log.error(error);
+        return error;
     }
 };
 
@@ -15,7 +14,7 @@ const verifyPassword = async (password: string, hash: string) => {
         const value = await argon2.verify(hash, password);
         return value;
     } catch (error) {
-        log.error(error);
+        return error;
     }
 };
 

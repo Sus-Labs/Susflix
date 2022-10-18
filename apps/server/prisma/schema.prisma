@@ -25,9 +25,9 @@ model Account {
 model Profile {
   id String @id @unique @default(cuid()) @map("_id")
 
-  name       String
-  avatar_url String
-  age        Int
+  name      String
+  avatarUrl String
+  age       Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -37,24 +37,11 @@ model Profile {
   @@map("profiles")
 }
 
-model Thumbnail {
-  id          String  @id @unique @default(cuid()) @map("_id")
-  title       String
-  description String
-  image_url   String?
-  url         String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("thumbnails")
-}
-
 model Movie {
   id          String @id @unique @default(cuid()) @map("_id")
   title       String
   description String
-  source_url  String
+  sourceUrl   String
   duration    String
   rating      Int
   age         Int
@@ -66,9 +53,12 @@ model Movie {
 }
 
 model Show {
-  id      String   @id @unique @default(cuid()) @map("_id")
-  name    String
-  seasons Season[]
+  id          String   @id @unique @default(cuid()) @map("_id")
+  name        String
+  description String
+  rating      Int
+  age         Int
+  seasons     Season[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -91,10 +81,12 @@ model Season {
 }
 
 model Episode {
-  id       String  @id @unique @default(cuid()) @map("_id")
-  name     String
-  Season   Season? @relation(fields: [seasonId], references: [id], onDelete: Cascade)
-  seasonId String?
+  id        String  @id @unique @default(cuid()) @map("_id")
+  imageUrl  String?
+  sourceUrl String
+  name      String
+  Season    Season? @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  seasonId  String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
