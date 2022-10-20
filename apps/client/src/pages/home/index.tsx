@@ -9,7 +9,7 @@ export default function Home() {
             <div>
                 <Featured
                     title="Featured"
-                    imageSrc="/icon.png"
+                    imageSrc="./icon.png"
                     description='Watch our new series "Wide Zuck"!'
                     href="wide_zuck"
                 />

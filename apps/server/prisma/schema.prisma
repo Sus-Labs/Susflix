@@ -87,6 +87,7 @@ model Episode {
   name      String
   Season    Season? @relation(fields: [seasonId], references: [id], onDelete: Cascade)
   seasonId  String?
+  duration  String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -5,6 +5,11 @@ const navigation = [
     { name: "TV Shows", href: "/home/shows" },
 ];
 
+interface LinkInterface {
+    name: string;
+    href: string;
+}
+
 export default function Header() {
     return (
         <header>
@@ -16,7 +21,7 @@ export default function Header() {
                             <img className="h-14 w-auto" src={"/icon.png"} alt="SusFlix" />
                         </Link>
                         <div className="ml-10 hidden space-x-8 lg:block">
-                            {navigation.map((link) => (
+                            {navigation.map((link: LinkInterface) => (
                                 <Link
                                     key={link.name}
                                     to={link.href}
