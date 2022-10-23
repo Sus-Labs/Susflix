@@ -40,7 +40,17 @@ const account_create = async (req: Request, res: Response) => {
         });
     }
 };
-const account_update = async (req: Request, res: Response) => {};
+
+const account_update = async (req: Request, res: Response) => {
+    const { email, username, password } = req.body;
+    const user = await account.update_account("id", {
+        username: username,
+        email: email,
+        password: password,
+        verified: false,
+    });
+};
+
 const account_delete = async (req: Request, res: Response) => {};
 
 export default {
