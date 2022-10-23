@@ -59,7 +59,14 @@ const create_account = async (account: AccountInterface) => {
     });
 };
 
-const update_account = async (id: string, account: any) => {
+interface UpdateAccountInterface {
+    username?: string;
+    email?: string;
+    password?: string;
+    verified?: boolean;
+}
+
+const update_account = async (id: string, account: UpdateAccountInterface) => {
     return await db.account.update({
         where: {
             id: id,
