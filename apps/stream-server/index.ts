@@ -52,7 +52,7 @@ function createServer() {
             if (!range) {
                 res.status(400).send({
                     statusCode: 400,
-                    message: "Range was not provided",
+                    message: "Range was not included in headers",
                     payload: null,
                 });
                 return;
