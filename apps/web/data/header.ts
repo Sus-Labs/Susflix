@@ -1,7 +1,7 @@
 const headerData: any = [
     {
         name: "SusFlix",
-        imageURL: "/susflix.png",
+        imageURL: "/icon.png",
     },
 ];
 
