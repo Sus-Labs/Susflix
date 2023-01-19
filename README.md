@@ -27,4 +27,4 @@ npm run dev
 
 ## License
 
-### [Apache License](./LICENSE)
+### [ Apache-2.0 license](./LICENSE)
