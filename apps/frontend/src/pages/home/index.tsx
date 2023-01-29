@@ -9,7 +9,7 @@ export default function Home() {
             <div>
                 <Featured
                     title="Featured"
-                    imageSrc="./icon.png"
+                    imageSrc="https://upload.wikimedia.org/wikipedia/commons/1/18/Mark_Zuckerberg_F8_2019_Keynote_%2832830578717%29_%28cropped%29.jpg"
                     description='Watch our new series "Wide Zuck"!'
                     href="wide_zuck"
                 />
