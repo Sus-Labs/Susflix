@@ -4,10 +4,8 @@
 
 | Name            | Folder                                      | Description                                       | Status |
 | --------------- | ------------------------------------------- | ------------------------------------------------- | ------ |
-| `web`           | [/apps/web](./apps/web)                     | Home of SusFlix built with Next.js & TailwindCSS. | 🚧     |
-| `client`        | [/apps/client](./apps/client)               | Lightweight React webapp for SusFlix.             | 🚧     |
-| `server`        | [/apps/server](./apps/server)               | SusFlix backend built with Node.js & TypeScript.  | 🚧     |
-| `stream-server` | [/apps/stream-server](./apps/stream-server) | Server that streams movies and shows.             | ✅     |
+| `web`           | [/apps/web](./apps/web)                     | Homepage of Susflix along with webapp.            | 🚧     |
+| `server`        | [/apps/server](./apps/server)               | Susflix backend built with Node.js & TypeScript.  | 🚧     |
 
 ### Build
 
